@@ -1,0 +1,15 @@
+.main-nav {
+  background-color: #6a0dad;
+}
+
+.main-nav li {
+  color: #fff;
+  padding: 5px 9px;
+  border-radius: 20px;
+}
+
+.main-nav li:hover {
+
+  font-weight: 500;
+
+}

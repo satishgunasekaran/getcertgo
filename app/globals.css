@@ -40,3 +40,8 @@
     transform: translateY(0);
   }
 }
+
+/* create a  css for main-nav */
+body {
+  background-color: #6A0DAD;
+}
