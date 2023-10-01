@@ -1,46 +1,126 @@
-// components/MainNavbar.tsx
+"use client";
 
-import Link from "next/link";
+import React from "react";
+import "./MainNavBar.css";
 
-// import css from './MainNavbar.module.css';
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Link,
+  Button,
+  NavbarMenuToggle,
+  NavbarMenu,
+  NavbarMenuItem,
+  NextUIProvider,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
+  DropdownTrigger,
+  Avatar,
+} from "@nextui-org/react";
 
-import "./MainNavbar.css";
+// deccleare tyo for props
+interface MainNavBarProps {
+  user: {
+    email?: string;
+  } | null;
+}
 
-// import tailwind css also
+export default function MainNavBar({ user }: MainNavBarProps) {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-const MainNavbar: React.FC = () => {
+  const menuItems = [
+    "Profile",
+    "Dashboard",
+    "Activity",
+    "Analytics",
+    "System",
+    "Deployments",
+    "My Settings",
+    "Team Settings",
+    "Help & Feedback",
+    "Log Out",
+  ];
+
   return (
-    <nav className="p-4 main-nav">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="text-white text-2xl font-semibold">GetCertGo</div>
-        <ul className="flex space-x-4">
-          <li>
-            <Link href="/">
-              <span>Home</span>
-            </Link>
-          </li>
-          <li>
-            <Link href="/about">
-              <span>About</span>
-            </Link>
-          </li>
-          <li>
-            <Link href="/search-courses">
-              <span>Search Courses</span>
-            </Link>
-          </li>
-        </ul>
-        <div className="flex items-center space-x-2">
-          <Link href="/profile">
-            <div className="flex items-center">
-              <span>My Profile</span>
-              <span className="ml-2 text-yellow-500">120 pts</span>
-            </div>
-          </Link>
-        </div>
-      </div>
-    </nav>
-  );
-};
+    <NextUIProvider>
+      <Navbar className="main-nav"
 
-export default MainNavbar;
+      isBordered={true}
+      >
+        <NavbarBrand>
+          <p className="font-bold text-white">GetCertGo</p>
+        </NavbarBrand>
+        <NavbarContent
+          className="lg:flex 
+            md:hidden
+        gap-4"
+          justify="center"
+        >
+          <NavbarItem>
+            <Link color="foreground" href="#">
+              Features
+            </Link>
+          </NavbarItem>
+          <NavbarItem isActive>
+            <Link href="#" aria-current="page">
+              Customers
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="#">
+              Integrations
+            </Link>
+          </NavbarItem>
+        </NavbarContent>
+        {user ? (
+          <NavbarContent as="div" justify="end">
+            <Dropdown placement="bottom-end">
+              <DropdownTrigger>
+                <Avatar
+                  isBordered
+                  as="button"
+                  className="transition-transform"
+                  color="secondary"
+                  name="Jason Hughes"
+                  size="sm"
+                  src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                />
+              </DropdownTrigger>
+              <DropdownMenu aria-label="Profile Actions" variant="flat">
+                <DropdownItem key="profile" className="h-14 gap-2">
+                  <p className="font-semibold">Signed in as</p>
+                  <p className="font-semibold"> {user?.email}</p>
+                </DropdownItem>
+                <DropdownItem key="settings">My Settings</DropdownItem>
+                <DropdownItem key="team_settings">Team Settings</DropdownItem>
+                <DropdownItem key="analytics">Analytics</DropdownItem>
+                <DropdownItem key="system">System</DropdownItem>
+                <DropdownItem key="configurations">Configurations</DropdownItem>
+                <DropdownItem key="help_and_feedback">
+                  Help & Feedback
+                </DropdownItem>
+                <DropdownItem key="logout" color="danger">
+                  Log Out
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </NavbarContent>
+        ) : (
+          <NavbarContent justify="end">
+            <NavbarItem className="hidden lg:flex">
+              <Link href="#">Login</Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Button as={Link} color="primary" href="#" variant="flat">
+                Sign Up
+              </Button>
+            </NavbarItem>
+          </NavbarContent>
+        )}
+      </Navbar>
+    </NextUIProvider>
+  );
+}

@@ -12,40 +12,16 @@ export default async function Index() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  interface User {
+    email?: string;
+  }
+
+
+
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="w-full">
-        <nav className="p-4 main-nav">
-          <div className="container mx-auto flex justify-between items-center">
-            <div className="text-white text-2xl font-semibold">GetCertGo</div>
-            <ul className="flex space-x-4">
-              <li>
-                <Link href="/">
-                  <span className="text-white">Home</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/about">
-                  <span className="text-white">About</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/search-courses">
-                  <span className="text-white">Search Courses</span>
-                </Link>
-              </li>
-            </ul>
-            <div className="flex items-center space-x-2">
-              <Link href="/profile">
-                <div className="flex items-center">
-                  <span>My Profile</span>
-                  <span className="ml-2 text-yellow-500">120 pts</span>
-                </div>
-              </Link>
-            </div>
-          </div>
-        </nav>
-      </div>
+      <MainNavbar user={user} />
+
 
       <div className="flex-grow">
         <div className="text-center py-8">

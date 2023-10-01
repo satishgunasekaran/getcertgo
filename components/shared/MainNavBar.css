@@ -1,5 +1,6 @@
 .main-nav {
-  background-color: #6a0dad;
+  /* add a blur effect to the background */
+  background: rgba(0, 0, 0, 0.35);
 }
 
 .main-nav li {
